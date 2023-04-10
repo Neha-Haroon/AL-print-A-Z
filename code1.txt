@@ -1,0 +1,31 @@
+dosseg
+.model small
+.stack 100h
+.data
+headingVar db ' A L P H A B E T S A T O Z $'
+.code
+main proc
+mov ax,@data ;MAKE LINK BETWEEN 16-BIT ACCUMULATOR AND DATA SEGMENT 
+mov ds,ax
+mov dx,offset headingVar ;HEADING
+mov ah,9 ;PRINT 
+int 21h
+mov cx,26 ;SET COUNTER TO 26 (as there are 26 alphabets so loop = 26x)
+mov dx,65 ;START FROM A (ascii 65 = A)
+Loop_Of_Alphabets:
+mov ah,2 ;PRINT
+int 21h
+mov bx,dx
+mov dx,10 ;NEW LINE FEED 
+mov ah,2 ;PRINT 
+int 21h 
+mov dx,13 ;CARRIAGE RETURN 
+mov ah,2 ;PRINT 
+int 21h 
+mov dx,bx
+inc dx ;increment dx by 1 dx++
+loop Loop_Of_Alphabets
+mov ah,4ch
+int 21h
+main endp
+end main
